@@ -15,6 +15,7 @@ public class Program
 
     }
 
+    //Metodos para suscribir al evento
     public static void TurnoChangedEventMethod(object? sender, ChangeDateEventArgs e)
     {
         Console.WriteLine($"Cambio de fecha de {e.FechaAnterior} a {e.FechaNueva}");
@@ -26,13 +27,18 @@ public class Program
     }
 
 }
+
+//Valores de los Estados de un Turno
 public enum Estados
 {
     Disponible = 0, Reservado = 1, Confirmado = 2, Procesando = 3, Finalizado = 4, Modificado = 5
 }
 
+
+//Clase Publicadora de los eventos
 public class Turno
 {
+    //Campos de la Clase: Defienen el estado de la clase
     public Estados estadoturno;
     public DateTime fechaHoraturno;
 
@@ -42,9 +48,12 @@ public class Turno
         this.fechaHoraturno = fechaHoraTurno;
     }
 
+
+    //Eventos de la clase
     public event EventHandler<ChangeDateEventArgs>? TurnoChanged;
     public event EventHandler<ChangeEstadoEventArgs>? EstadoChanged;
 
+    //Metodos que lanzan los Eventos de la clase publicadora: Una vez tengan suscriptores
     public void ChangeTurno(ChangeDateEventArgs e)
     {
         TurnoChanged?.Invoke(this, e);
@@ -54,6 +63,9 @@ public class Turno
         EstadoChanged?.Invoke(this, e);
     }
 
+    //Propidades para acceder a los campos y leer o modificar sus valores:
+
+    //Propiedad para el campo EstadoTurno:
     private Estados EstadoTurno
     {
         get { return this.estadoturno; }
@@ -67,6 +79,7 @@ public class Turno
         }
     }
 
+    //Propiedad para el campo FechaHoraTurno
     public DateTime FechaHoraTurno
     {
         get => this.fechaHoraturno;
@@ -80,7 +93,11 @@ public class Turno
             var args = new ChangeDateEventArgs(fechaAnterior,this.fechaHoraturno);
             ChangeTurno(args);
 
+            //El hecho de realizar una asignacion a esta Propiedad 'EstadoTurno' enciende el metodo
+            //de seteo, lanzando el evento de cambio de Estado 'ChangeEstado() => EstadoChanged(this, e)' donde 'e' contiene datos para transferir al evento -> 'ChangeEstadoTurnoArgs(estadoTurnoAnterior, estadoTurnoActual)'
+            //este metodo Sirve para transferir datos a los eventos como argumentos.
             EstadoTurno = Estados.Modificado;
+
            
 
         }
