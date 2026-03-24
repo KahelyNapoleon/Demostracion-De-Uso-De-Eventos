@@ -1,1 +1,4 @@
 # Evento3
+Bueno, aqui presento una breve demostracion de lo aprendido del modulo de Eventos de MicrosoftLearn.
+La presentacion consiste en una clase minimalista que simularia el estado de un Turno por medio de los campos FechaTurno y EstadoTurno, a su vez para mostrar en pantalla el cambio de estas propiedades, opte por incoorporar dos eventos del tipo de delegado de eventos EventHandler<T>, y T con dos clases que transportarian los datos anteriores y posteriores al cambio de los valores de cada propiedad. Y por ultimo los metodos de tipo 'void' que lanza los eventos junto con los metodos que se suscriban a los eventos. 
+Una breve aclaracion, los eventos se lanzan en orden. Primero, por medio de la instancia de la clase turno cuando se realiza un cambio de fecha, y luego la propiedad 'FechaTurno' realiza un llamado a la propiedad EstadoTurno para cambiar su valor lanzando el ultimo evento.
